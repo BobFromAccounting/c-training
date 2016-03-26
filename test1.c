@@ -12,14 +12,27 @@ typedef struct node {
 
 } node_t;
 
-void print_list_of_times_max_over_min(node_t * head, char * get_time_max, char * get_time_min) {
+int populate_list(node_t * head, char * get_time_max, char * get_time_min) {
     node_t * current = head;
+    node_t * prev;
 
     while (current != NULL) {
 
         strcpy(current->time_max, get_time_max);
-
         strcpy(current->time_min, get_time_min);
+
+        prev = current;
+        current = current->next;
+    }
+
+    return 0;
+
+}
+
+void print_list_of_times_max_over_min(node_t * head, char * get_time_max, char * get_time_min) {
+    node_t * current = head;
+
+    while (current != NULL) {
 
         printf("%s\n", current->time_max);
         printf("%s\n", current->time_min);
@@ -143,9 +156,9 @@ int main()
 
     char * line = NULL;
 
-    node_t * head = NULL;
+    struct node_t * head;
 
-    head = malloc(sizeof(node_t));
+    * head = malloc(sizeof(node_t));
 
     if (head == NULL) {
         return 1;
@@ -153,8 +166,11 @@ int main()
 
     while (fgets(line, 32, stream) != NULL)
     {
-        char * get_time_max = strtok(line, ",");
-        char * get_time_min = strtok(NULL, ", ");
+        char * get_time_max;
+        char * get_time_min;
+        char temp_time_a = strtok(line, ",");
+        char temp_time_b = strtok(NULL, ", ");
+        double seconds = time_difference(temp_time_a, temp_time_b);
 
         print_list_of_times_max_over_min(head, get_time_max, get_time_min);
 
