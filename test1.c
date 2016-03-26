@@ -4,18 +4,23 @@
 
 typedef struct node {
 
-    char * time_max[12];
-    char * time_min[12];
+    char * time_max;
+    char * time_min;
 
     struct node * next;
     struct node * previous;
 
 } node_t;
 
-void print_list_of_times_max_over_min(node_t * head) {
+void print_list_of_times_max_over_min(node_t * head, char * get_time_max, char * get_time_min) {
     node_t * current = head;
 
     while (current != NULL) {
+
+        strcpy(current->time_max, get_time_max);
+
+        strcpy(current->time_min, get_time_min);
+
         printf("%s\n", current->time_max);
         printf("%s\n", current->time_min);
 
@@ -65,12 +70,12 @@ void push_time_min_to_beginning_of_list(node_t ** head, char * time_min) {
     *head = new_time_node_to_add;
 }
 
-int pop_time_max_from_beginning_of_list(node_t ** head) {
-    int return_value = -1;
+char * pop_time_max_from_beginning_of_list(node_t ** head) {
+    char * return_value;
     node_t * next_node = NULL;
 
     if (*head == NULL) {
-        return -1;
+        return "Cannot Remove Item";
     }
 
     next_node = (*head)->next;
@@ -81,12 +86,12 @@ int pop_time_max_from_beginning_of_list(node_t ** head) {
     return return_value;
 }
 
-int pop_time_min_from_beginning_of_list(node_t ** head) {
-    int return_value = -1;
+char * pop_time_min_from_beginning_of_list(node_t ** head) {
+    char * return_value;
     node_t * next_node = NULL;
 
     if (*head == NULL) {
-        return -1;
+        return "Cannot Remove Item";;
     }
 
     next_node = (*head)->next;
@@ -97,64 +102,67 @@ int pop_time_min_from_beginning_of_list(node_t ** head) {
     return return_value;
 }
 
-int remove_time_max_from_end_of_list(node_t * head) {
-    int return_value = 0;
-    if (head->next == NULL) {
-        return_value = head->time_max;
-        free(head);
-        head = NULL;
-        return return_value;
-    }
+// char * remove_time_max_from_end_of_list(node_t * head) {
+//     char * return_value;
+//     if (head->next == NULL) {
+//         return_value = head->time_max;
+//         free(head);
+//         head = NULL;
+//         return return_value;
+//     }
 
-    node_t * current = head;
+//     node_t * current = head;
 
-    while (current->next->next != NULL) {
-        current = current->next;
-    }
-}
+//     while (current->next->next != NULL) {
+//         current = current->next;
+//     }
+// }
 
-int remove_time_min_from_end_of_list(node_t * head) {
-    int return_value = 0;
-    if (head->next == NULL) {
-        return_value = head->time_min;
-        free(head);
-        head = NULL;
-        return return_value;
-    }
+// char * remove_time_min_from_end_of_list(node_t * head) {
+//     char * return_value;
+//     if (head->next == NULL) {
+//         return_value = head->time_min;
+//         free(head);
+//         head = NULL;
+//         return return_value;
+//     }
 
-    node_t * current = head;
+//     node_t * current = head;
 
-    while (current->next->next != NULL) {
-        current = current->next;
-    }
-}
+//     while (current->next->next != NULL) {
+//         current = current->next;
+//     }
+
+// }
 
 
 int main()
 {
 
-    print_list(head);
+    FILE * stream = fopen("test.csv", "r");
+
+    char * line = NULL;
+
+    node_t * head = NULL;
+
+    head = malloc(sizeof(node_t));
+
+    if (head == NULL) {
+        return 1;
+    }
+
+    while (fgets(line, 32, stream) != NULL)
+    {
+        char * get_time_max = strtok(line, ",");
+        char * get_time_min = strtok(NULL, ", ");
+
+        print_list_of_times_max_over_min(head, get_time_max, get_time_min);
+
+        
+        // char* tempLine = strdup(line);
+        // NOTE strtok clobbers tmp
+        // free(tempLine);
+    }
 
     return 0;
 }
-    // FILE* stream = fopen("test.csv", "r");
-
-    // char line[50];
-    // while (fgets(line, 50, stream) != NULL)
-    // {
-
-    //     char* getTimeA = strtok(line, ",");
-    //     strcpy(times->timeA, getTimeA);
-    //     char* getTimeB = strtok(NULL, ", ");
-    //     strcpy(times->timeB, getTimeB);
-    //     printf("Field 2 would be %s\n", times->timeB);
-    //     printf("Field 1 would be %s\n", times->timeA);
-        
-    //     times->next = head;
-    //     head = times;
-
-
-    //     // char* tempLine = strdup(line);
-    //     // NOTE strtok clobbers tmp
-    //     // free(tempLine);
-    // }
