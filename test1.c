@@ -151,7 +151,6 @@ char * pop_time_min_from_beginning_of_list(node_t ** head) {
 
 int main()
 {
-
     FILE * stream = fopen("test.csv", "r");
 
     char * line = NULL;
