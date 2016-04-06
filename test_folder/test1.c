@@ -2,15 +2,26 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct node {
+struct Node {
 
-    char * time_max;
-    char * time_min;
+    char *time_max;
+    char *time_min;
 
-    struct node * next;
-    struct node * previous;
+    struct node *next;
+    struct node *previous;
 
-} node_t;
+}
+
+struct Node *Node_create(char *time_max, char *time_min, struct Node *previous, struct Node *next)
+{
+    struct Node *field = malloc(sizeof(struct Node));
+    assert(*field != NULL);
+
+    field->time_max = strdup(time_max);
+    field->time_min = strdup(time_min);
+    field->previous = 
+    return field;
+}
 
 int populate_list(node_t * head, char * get_time_max, char * get_time_min) {
     node_t * current = head;
@@ -153,7 +164,7 @@ int main()
 {
     FILE * stream = fopen("test.csv", "r");
 
-    char * line = NULL;
+    char * line;
 
     struct node_t * head;
 
