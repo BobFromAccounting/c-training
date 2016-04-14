@@ -1,0 +1,24 @@
+set -e
+
+echo Running Program
+
+./ex17 db_test.dat c 100 512
+
+./ex17 db_test.dat s 0 Tarek bob@bob.bob
+
+./ex17 db_test.dat s 1 Mary kate@bate.kate
+
+./ex17 db_test.dat s 2 John frank@hack.planet
+
+./ex17 db_test.dat g 0
+
+./ex17 db_test.dat g 1
+
+./ex17 db_test.dat d 3
+
+./ex17 db_test.dat l
+
+echo completed
+
+
+
