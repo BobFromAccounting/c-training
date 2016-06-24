@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 {   
     if (argc < 2) {
         
-        printf("USAGE: <starting number>");
+        printf("USAGE: <starting number>\n");
         exit(1);        
     }
 
